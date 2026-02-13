@@ -21,10 +21,7 @@ opacity:0;
 animation:fadeIn .8s ease forwards;
 }
 
-/* Page fade-in */
-@keyframes fadeIn{
-to{opacity:1;}
-}
+@keyframes fadeIn{to{opacity:1;}}
 
 /* Floating hearts + bows */
 .float{
@@ -32,26 +29,24 @@ position:absolute;
 opacity:0.22;
 animation:float 12s linear infinite;
 }
-
 @keyframes float{
 from{transform:translateY(100vh);}
 to{transform:translateY(-10vh);}
 }
 
-/* Animated Pavami */
+/* Animated text */
 .glowText{
 font-family:Pacifico,cursive;
 font-size:30px;
 color:#ff4d8d;
 animation:glow 2s ease-in-out infinite alternate;
 }
-
 @keyframes glow{
 from{text-shadow:0 0 8px #ff85a2;}
 to{text-shadow:0 0 20px #ff4d8d;}
 }
 
-/* Sparkle effect */
+/* Sparkles */
 .sparkle{
 position:absolute;
 color:#ff85a2;
@@ -63,9 +58,9 @@ animation:twinkle 2.5s infinite ease-in-out;
 50%{opacity:0.7;}
 }
 
-/* Ultra aesthetic Spotify button */
+/* Button */
 .ultraBtn{
-margin-top:18px;
+margin-top:14px;
 padding:16px 34px;
 border:none;
 border-radius:999px;
@@ -77,12 +72,10 @@ box-shadow:0 0 15px rgba(255,77,141,.5),0 0 40px rgba(255,77,141,.3);
 animation:pulse 2s infinite;
 transition:.3s;
 }
-
 .ultraBtn:hover{
 transform:scale(1.07);
 box-shadow:0 0 25px rgba(255,77,141,.7),0 0 60px rgba(255,77,141,.4);
 }
-
 @keyframes pulse{
 0%{box-shadow:0 0 15px rgba(255,77,141,.4);}
 50%{box-shadow:0 0 35px rgba(255,77,141,.7);}
@@ -93,9 +86,8 @@ box-shadow:0 0 25px rgba(255,77,141,.7),0 0 60px rgba(255,77,141,.4);
 
 <body>
 
-<!-- Floating background elements -->
 <script>
-/* White hearts + bows */
+/* Floating hearts + bows */
 for(let i=0;i<35;i++){
 let el=document.createElement("div");
 el.className="float";
@@ -123,22 +115,25 @@ document.body.appendChild(sp);
 
 <div>
 <div class="glowText">Pavamii💖</div>
-<p style="color:#ff4d8d;margin-top:8px;">A little something for you </p>
+<p style="color:#ff4d8d;margin-top:8px;">A little something for you</p>
 
-<button class="ultraBtn" onclick="openSpotify()">onnuuude click cheyyy</button>
+<!-- NEW LETTER BUTTON -->
+<button class="ultraBtn" onclick="openLetter()">aadhyam ivide click pann</button>
+
+<!-- EXISTING SPOTIFY BUTTON -->
+<button class="ultraBtn" onclick="openSpotify()">ennitt ivide</button>
 </div>
 
 <script>
 const music=document.getElementById("music");
 
-/* Resume music seamlessly */
+/* Resume music with fade */
 window.addEventListener("load",()=>{
 const saved=localStorage.getItem("musicTime");
 if(saved) music.currentTime=parseFloat(saved);
 
-/* Smooth fade-in */
 music.volume=0;
-music.play();
+music.play().catch(()=>{});
 let v=0;
 const fade=setInterval(()=>{
 v+=0.05;
@@ -157,6 +152,11 @@ localStorage.setItem("musicTime",music.currentTime);
 /* Open Spotify */
 function openSpotify(){
 window.open("https://open.spotify.com/playlist/5SmmvgnPWm3ktCfGAoSkqR?si=QcHfK38_Rp6M2Zis5hhnNA");
+}
+
+/* Open Letter */
+function openLetter(){
+window.location.href="./letter.html";
 }
 </script>
 
