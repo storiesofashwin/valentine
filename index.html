@@ -186,12 +186,32 @@ document.getElementById("noBtn").style.display="none";
 
 /* NEXT PAGE */
 function goPage2(){
-nextSound.currentTime=0;
-nextSound.play().catch(()=>{});
 
-document.body.style.opacity="0";
-setTimeout(()=>location.href="page2.html",700);
+/* play click sound */
+nextSound.currentTime = 0;
+const playPromise = nextSound.play();
+
+/* fade page */
+document.body.style.opacity = "0";
+
+/* wait for sound (or max 700ms) then go */
+if (playPromise !== undefined) {
+    playPromise.then(() => {
+        setTimeout(() => {
+            window.location.href = "./page2.html";
+        }, 700);
+    }).catch(() => {
+        setTimeout(() => {
+            window.location.href = "./page2.html";
+        }, 700);
+    });
+} else {
+    setTimeout(() => {
+        window.location.href = "./page2.html";
+    }, 700);
 }
+}
+
 </script>
 
 </body>
