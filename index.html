@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Pavamii❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+:root{--pink:#ff4d8d;--light:#ffeef5;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;}
+
+body{
+height:100vh;overflow:hidden;
+background:linear-gradient(135deg,#ffd6e7,#ffeef5);
+display:flex;align-items:center;justify-content:center;text-align:center;
+transition:opacity .8s ease;
+}
+
+/* Floating bows + hearts */
+.float{
+position:absolute;
+opacity:.18;
+animation:float 10s linear infinite;
+}
+@keyframes float{from{transform:translateY(100vh);}to{transform:translateY(-10vh);}}
+
+/* Animated text */
+.glowText{
+font-family:Pacifico,cursive;
+font-size:28px;
+color:var(--pink);
+animation:glow 2s ease-in-out infinite alternate;
+}
+@keyframes glow{
+from{text-shadow:0 0 6px #ff85a2;}
+to{text-shadow:0 0 18px #ff4d8d;}
+}
+
+/* PASSWORD */
+#lock{
+position:fixed;inset:0;
+background:linear-gradient(135deg,#ffd6e7,#ffeef5);
+display:flex;align-items:center;justify-content:center;
+z-index:10;
+}
+.box{
+background:white;padding:30px;border-radius:18px;
+box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+input{
+padding:10px;border:none;border-radius:8px;
+margin-top:10px;text-align:center;
+}
+
+/* Button */
+.unlockBtn{
+margin-top:15px;padding:12px 26px;border:none;border-radius:999px;
+background:linear-gradient(135deg,#ff4d8d,#ff85a2);
+color:white;cursor:pointer;box-shadow:0 6px 18px rgba(255,77,141,.35);
+}
+
+/* Card */
+.card{
+background:white;padding:30px;border-radius:18px;
+width:90%;max-width:400px;
+box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+
+img{
+width:180px;height:180px;border-radius:15px;margin:15px 0;
+object-fit:cover;
+}
+
+.btn{
+padding:12px 26px;border:none;border-radius:999px;margin:10px;
+cursor:pointer;background:linear-gradient(135deg,#ff4d8d,#ff85a2);
+color:white;
+}
+.no{background:#eee;color:#444;}
+.nextBtn{display:none;}
+</style>
+</head>
+
+<body>
+
+<script>
+/* Floating bows + hearts */
+for(let i=0;i<30;i++){
+let el=document.createElement("div");
+el.className="float";
+el.innerHTML=Math.random()>.5?"🎀":"💖";
+el.style.left=Math.random()*100+"vw";
+el.style.fontSize=(12+Math.random()*16)+"px";
+document.body.appendChild(el);
+}
+</script>
+
+<!-- PASSWORD -->
+<div id="lock">
+<div class="box">
+<h2 class="glowText">For Pavamii💌</h2>
+<input type="password" id="pw" placeholder="Enter Password"><br>
+<button class="unlockBtn" onclick="unlock()">Thorann nokk❤️</button>
+<p id="wrong" style="color:red;display:none;">ith polum arinjoode shottee</p>
+</div>
+</div>
+
+<!-- BACKGROUND MUSIC -->
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- YES SOUND -->
+<audio id="yesSound">
+<source src="sec.mp3" type="audio/mpeg">
+</audio>
+
+<!-- NEXT BUTTON SOUND -->
+<audio id="nextSound">
+<source src="ond.mp3" type="audio/mpeg">
+</audio>
+
+<!-- MAIN CARD -->
+<div class="card">
+<div class="glowText">Pavamii💖</div>
+<p>क्या तुम मेरी वैलेंटाइन बनोगी?</p>
+
+<img src="download.jpg">
+
+<button class="btn" onclick="yes()">Yes yess💞</button>
+<button class="btn no" id="noBtn">onn po my*ee</button>
+
+<p id="msg" style="display:none;color:#ff4d8d;">
+Kunjin santhoshm aayelloo, i love you ahnee❤️
+</p>
+
+<button class="btn nextBtn" id="nextBtn" onclick="goPage2()">
+ivide click pann💌
+</button>
+</div>
+
+<script>
+const PASSWORD="0112";
+const music=document.getElementById("music");
+const yesSound=document.getElementById("yesSound");
+const nextSound=document.getElementById("nextSound");
+
+/* Smooth fade music */
+function fadePlay(){
+music.volume=0;
+const playPromise=music.play();
+if(playPromise!==undefined) playPromise.catch(()=>{});
+let v=0;
+const fade=setInterval(()=>{
+v+=0.05;
+music.volume=v;
+if(v>=1)clearInterval(fade);
+},100);
+}
+
+/* Unlock */
+function unlock(){
+if(document.getElementById("pw").value===PASSWORD){
+document.getElementById("lock").style.display="none";
+fadePlay();
+}else document.getElementById("wrong").style.display="block";
+}
+
+/* NO button run */
+const noBtn=document.getElementById("noBtn");
+noBtn.onmouseover=()=>{
+noBtn.style.transform=`translate(${Math.random()*200-100}px,${Math.random()*80}px)`;
+};
+
+/* YES */
+function yes(){
+yesSound.currentTime=0;
+yesSound.play().catch(()=>{});
+
+document.getElementById("msg").style.display="block";
+document.getElementById("nextBtn").style.display="inline-block";
+document.getElementById("noBtn").style.display="none";
+}
+
+/* NEXT PAGE */
+function goPage2(){
+nextSound.currentTime=0;
+nextSound.play().catch(()=>{});
+
+document.body.style.opacity="0";
+setTimeout(()=>location.href="page2.html",700);
+}
+</script>
+
+</body>
+</html>

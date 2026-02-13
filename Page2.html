@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;height:100vh;
+display:flex;align-items:center;justify-content:center;
+background:linear-gradient(135deg,#ffe4f0,#fff0f6);
+text-align:center;overflow:hidden;
+font-family:Poppins,sans-serif;
+}
+
+/* Card */
+.card{
+background:white;
+padding:35px 30px;
+border-radius:18px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Buttons */
+.btn{
+padding:12px 26px;
+border:none;
+border-radius:999px;
+margin:10px;
+font-size:14px;
+cursor:pointer;
+transition:all 0.25s ease;
+}
+
+.yes{
+background:linear-gradient(135deg,#ff4d8d,#ff85a2);
+color:white;
+box-shadow:0 6px 18px rgba(255,77,141,0.35);
+}
+.yes:hover{transform:translateY(-2px) scale(1.05);}
+.yes:active{transform:scale(0.96);}
+
+.no{background:#f1f1f1;color:#444;}
+.no:hover{transform:scale(1.05);}
+
+/* Final text */
+.final{
+display:none;
+font-family:'Playfair Display',serif;
+font-size:34px;
+color:#ff4d8d;
+animation:fadeIn 1.3s ease forwards;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(15px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* Countdown */
+.wait{display:none;margin-top:12px;color:#ff4d8d;}
+
+.nextBtn{
+display:none;
+margin-top:15px;
+padding:12px 26px;
+border:none;
+border-radius:999px;
+background:linear-gradient(135deg,#ff4d8d,#ff85a2);
+color:white;
+cursor:pointer;
+box-shadow:0 6px 18px rgba(255,77,141,0.35);
+transition:0.25s;
+}
+.nextBtn:hover{
+transform:translateY(-2px);
+box-shadow:0 10px 25px rgba(255,77,141,0.45);
+}
+
+/* Floating hearts */
+.heart{
+position:absolute;
+opacity:0.25;
+animation:float 9s linear infinite;
+}
+@keyframes float{
+from{transform:translateY(100vh);}
+to{transform:translateY(-10vh);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND MUSIC -->
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- FINAL TEXT SOUND (PLAYS ONLY WHEN TEXT APPEARS) -->
+<audio id="finalSound" preload="auto">
+<source src="boo.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card" id="card">
+<h2 style="color:#ff4d8d;">Pavamii💖</h2>
+<p>nee eppodhum enkoodave iruppiyaaa!?</p>
+
+<button class="btn yes" onclick="showFinal()">Yes yess❤️</button>
+<button class="btn no" id="noBtn">pattathillaa</button>
+</div>
+
+<div class="final" id="final">HAPPY VALENTINES DAY PAVAMII💌</div>
+
+<div class="wait" id="wait">
+Wait for <span id="timer">5</span> seconds ⏳
+</div>
+
+<button class="nextBtn" id="nextBtn" onclick="location.href='page3.html'">
+onnude click cheyy 💌
+</button>
+
+<script>
+const music=document.getElementById("music");
+const finalSound=document.getElementById("finalSound");
+
+/* Resume background music */
+window.addEventListener("load",()=>{
+const saved=localStorage.getItem("musicTime");
+if(saved) music.currentTime=parseFloat(saved);
+music.play().catch(()=>{});
+});
+
+/* Save music time */
+setInterval(()=>{
+if(!music.paused){
+localStorage.setItem("musicTime",music.currentTime);
+}
+},1000);
+
+/* NO button runs away */
+const noBtn=document.getElementById("noBtn");
+noBtn.onmouseover=()=>{
+noBtn.style.transform=`translate(${Math.random()*200-100}px,${Math.random()*80}px)`;
+}
+
+/* YES CLICK */
+function showFinal(){
+
+/* Hide question */
+document.getElementById("card").style.display="none";
+
+/* Show final message */
+document.getElementById("final").style.display="block";
+
+/* 🔊 PLAY SOUND ONLY NOW */
+finalSound.currentTime=0;
+finalSound.loop=false;
+finalSound.play().catch(()=>{});
+
+/* Floating hearts */
+for(let i=0;i<25;i++){
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💖";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(14+Math.random()*16)+"px";
+document.body.appendChild(h);
+}
+
+/* Countdown */
+document.getElementById("wait").style.display="block";
+let t=5;
+
+const timer=setInterval(()=>{
+t--;
+document.getElementById("timer").innerText=t;
+
+if(t<=0){
+clearInterval(timer);
+document.getElementById("wait").style.display="none";
+document.getElementById("nextBtn").style.display="inline-block";
+}
+},1000);
+}
+</script>
+
+</body>
+</html>
