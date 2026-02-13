@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+overflow:hidden;
+background:linear-gradient(135deg,#fff,#ffeef5);
+font-family:Poppins,sans-serif;
+opacity:0;
+animation:fadeIn .8s ease forwards;
+}
+
+/* Page fade-in */
+@keyframes fadeIn{
+to{opacity:1;}
+}
+
+/* Floating hearts + bows */
+.float{
+position:absolute;
+opacity:0.22;
+animation:float 12s linear infinite;
+}
+
+@keyframes float{
+from{transform:translateY(100vh);}
+to{transform:translateY(-10vh);}
+}
+
+/* Animated Pavami */
+.glowText{
+font-family:Pacifico,cursive;
+font-size:30px;
+color:#ff4d8d;
+animation:glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow{
+from{text-shadow:0 0 8px #ff85a2;}
+to{text-shadow:0 0 20px #ff4d8d;}
+}
+
+/* Sparkle effect */
+.sparkle{
+position:absolute;
+color:#ff85a2;
+opacity:0.5;
+animation:twinkle 2.5s infinite ease-in-out;
+}
+@keyframes twinkle{
+0%,100%{opacity:0.2;}
+50%{opacity:0.7;}
+}
+
+/* Ultra aesthetic Spotify button */
+.ultraBtn{
+margin-top:18px;
+padding:16px 34px;
+border:none;
+border-radius:999px;
+font-size:16px;
+color:white;
+cursor:pointer;
+background:linear-gradient(135deg,#ff4d8d,#ff85a2);
+box-shadow:0 0 15px rgba(255,77,141,.5),0 0 40px rgba(255,77,141,.3);
+animation:pulse 2s infinite;
+transition:.3s;
+}
+
+.ultraBtn:hover{
+transform:scale(1.07);
+box-shadow:0 0 25px rgba(255,77,141,.7),0 0 60px rgba(255,77,141,.4);
+}
+
+@keyframes pulse{
+0%{box-shadow:0 0 15px rgba(255,77,141,.4);}
+50%{box-shadow:0 0 35px rgba(255,77,141,.7);}
+100%{box-shadow:0 0 15px rgba(255,77,141,.4);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Floating background elements -->
+<script>
+/* White hearts + bows */
+for(let i=0;i<35;i++){
+let el=document.createElement("div");
+el.className="float";
+el.innerHTML=Math.random()>.5?"🤍":"🎀";
+el.style.left=Math.random()*100+"vw";
+el.style.fontSize=(12+Math.random()*18)+"px";
+document.body.appendChild(el);
+}
+
+/* Sparkles */
+for(let i=0;i<20;i++){
+let sp=document.createElement("div");
+sp.className="sparkle";
+sp.innerHTML="✨";
+sp.style.left=Math.random()*100+"vw";
+sp.style.top=Math.random()*100+"vh";
+document.body.appendChild(sp);
+}
+</script>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div>
+<div class="glowText">Pavamii💖</div>
+<p style="color:#ff4d8d;margin-top:8px;">A little something for you </p>
+
+<button class="ultraBtn" onclick="openSpotify()">onnuuude click cheyyy</button>
+</div>
+
+<script>
+const music=document.getElementById("music");
+
+/* Resume music seamlessly */
+window.addEventListener("load",()=>{
+const saved=localStorage.getItem("musicTime");
+if(saved) music.currentTime=parseFloat(saved);
+
+/* Smooth fade-in */
+music.volume=0;
+music.play();
+let v=0;
+const fade=setInterval(()=>{
+v+=0.05;
+music.volume=v;
+if(v>=1) clearInterval(fade);
+},100);
+});
+
+/* Save music time */
+setInterval(()=>{
+if(!music.paused){
+localStorage.setItem("musicTime",music.currentTime);
+}
+},1000);
+
+/* Open Spotify */
+function openSpotify(){
+window.open("https://open.spotify.com/playlist/5SmmvgnPWm3ktCfGAoSkqR?si=QcHfK38_Rp6M2Zis5hhnNA");
+}
+</script>
+
+</body>
+</html>
